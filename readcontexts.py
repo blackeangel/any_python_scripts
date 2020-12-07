@@ -102,7 +102,7 @@ if len(exceptlist_add)!=0:
                 times = f
                 ki = tmp1.index(i) # ki - индекс строки с самым частым "хвостом"
         tmp.extend(tmplistcont[ki][1:])
-        tmp2.append(tmp)
+        tmp3.append(tmp)
         # <-- contexts
             #print(tmp)
             #tmplistconf.append(tmp)# добавление к массиву "результирующей" строки
