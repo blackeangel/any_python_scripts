@@ -78,6 +78,8 @@ if len(exceptlist_add)!=0:
 
         # contexts -->
         tmplistcont=[[]]
+        r = y.count("/") + 1
+        mfold = "/" + y[0:y.rfind("/")]
         for m in contextsmass:
             for mln in m:
                 if mfold in mln:
