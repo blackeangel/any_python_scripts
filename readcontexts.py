@@ -40,29 +40,24 @@ if len(exceptlist_deleted)!=0:
         if  set(file_list) & set(contextsmass[l]):
             del contextsmass[l]
 tmp2=[[]]
+tmp3=[[]]
 exceptlist_add=list(set(file_list)-set(configlistfile)) #нашли то чего нет в конфигах
 #если что то добавили...то будет много кода :)
 if len(exceptlist_add)!=0:
-    #print(exceptlist_add)
     for y in exceptlist_add:
         tmplistconf = [[]]
         r=y.count("/")
         mfold=y[0:y.rfind("/")]
-        #print(mfold)
+        # configs -->
         for m in configmass:
-
             for mln in m:
                 if mfold in mln:
-                    #print(mfold)
                     if mln.count("/") == r:
                         tmplistconf.append(m)
-                        #print(m)
         if len(tmplistconf[0])==0:
             del tmplistconf[0]
-        #print(tmplistconf)
         k=len(tmplistconf) # k - количество строк в массиве
         k1=len(tmplistconf[0]) # к1 - количество элементов в строке
-        #for el in exceptlist_add:
         tmp1=[]
         tmp=[]
         tmp.append(y)
@@ -79,6 +74,36 @@ if len(exceptlist_add)!=0:
                 ki = tmp1.index(i) # ki - индекс строки с самым частым "хвостом"
         tmp.extend(tmplistconf[ki][1:])
         tmp2.append(tmp)
+        # <-- configs
+
+        # contexts -->
+        tmplistcont=[[]]
+        for m in contextsmass:
+            for mln in m:
+                if mfold in mln:
+                    if mln.count("/") == r:
+                        tmplistcont.append(m)
+        if len(tmplistcont[0])==0:
+            del tmplistcont[0]
+        k=len(tmplistcont) # k - количество строк в массиве
+        k1=len(tmplistcont[0]) # к1 - количество элементов в строке
+        tmp1=[]
+        tmp=[]
+        tmp.append(y)
+        for j in range(k) :
+            st = ''
+            for i in range(1,k1) :
+                    st += str(tmplistcont[j][i])
+            tmp1.append(st)
+        times = 0
+        for i in set(tmp1) :
+            f = tmp1.count(i)
+            if times < f :
+                times = f
+                ki = tmp1.index(i) # ki - индекс строки с самым частым "хвостом"
+        tmp.extend(tmplistcont[ki][1:])
+        tmp2.append(tmp)
+        # <-- contexts
             #print(tmp)
             #tmplistconf.append(tmp)# добавление к массиву "результирующей" строки
         #tmplistconf = [[]]
@@ -86,7 +111,9 @@ if len(exceptlist_add)!=0:
 #for i in tmp2:
 #"    i.insert(len(i),0)
 tmp2.sort()
+tmp3.sort()
 print(tmp2)
+print(tmp3)
 print(tmplistconf)
      #print(tmplistconf)
         #    pass
