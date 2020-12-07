@@ -115,7 +115,9 @@ class Extractor(object):
                     if i[0] == 'security.selinux':
                         con = i[1].decode('utf8')[:-1]
                     elif i[0] == 'security.capability':
-                        cap = ' ' + str(hex(struct.unpack("<5I", i[1])[1]))
+                        raw_cap = struct.unpack("<IIIII", i[1])
+                        cap = ' capabilities=' + str(hex(int('%04x%04x%04x%04x' % (raw_cap[4],raw_cap[3], raw_cap[2], raw_cap[1]), 16)))
+						#cap = ' ' + str(hex(struct.unpack("<5I", i[1])[1]))
                         # cap = ' capabilities=' + str(hex(struct.unpack("<5I", i[1])[1]))
                 if entry_inode.is_dir:
                     dir_target = self.EXTRACT_DIR + entry_inode_path
@@ -257,6 +259,9 @@ class Extractor(object):
         f = open(self.EXTRACT_DIR + '_size.txt', 'tw', encoding='utf-8')
         self.__appendf(os.path.getsize(self.OUTPUT_IMAGE_FILE), self.EXTRACT_DIR + '_size.txt')
         f.close()
+        k = open(self.EXTRACT_DIR + '.txt', 'tw', encoding='utf-8')
+        self.__appendf(self.OUTPUT_IMAGE_FILE, self.EXTRACT_DIR + '.txt')
+        k.close()
         with open(self.OUTPUT_IMAGE_FILE, 'rb') as file:
             root = ext4.Volume(file).root
             #26/09/18 -->

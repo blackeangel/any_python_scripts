@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import tkinter
-from tkinter import ttk, Button, Label, Frame, filedialog, messagebox
+from tkinter import ttk, Button, Label, Frame
 from tkinter import *
+import tkinter.filedialog
 import os
 import ntpath
+from tkinter import messagebox
 
 indir=os.path.abspath(__file__)
 fsconfig=[]
@@ -44,7 +46,7 @@ def selectdir():
 def selectfs():
     global fs_config_file
     ftypes = [('Текстовые файлы', '*fs_config*.txt')]
-    dlg = tkinter.filedialog.Open(filetypes=ftypes,  title='Выберите файл fs_config', initialdir=indir)
+    dlg = tkinter.filedialog.Open(filetypes=ftypes,  title='Выберите файл', initialdir=indir)
     fs_config_file = dlg.show()
     try:
         label1.config(text="fs_config: " + fs_config_file)
